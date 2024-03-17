@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Lab2_Hrynchuk.Model
+namespace Lab2_Hrynchuk.Models
 {
     internal class Person
     {
@@ -47,7 +47,7 @@ namespace Lab2_Hrynchuk.Model
         }
 
         public Person(string firstName, string lastName, string emailAddress)
-            : this(firstName, lastName, emailAddress, DateTime.MinValue) { }
+            : this(firstName, lastName, emailAddress, DateTime.Today) { }
 
         public Person(string firstName, string lastName, DateTime birthDate)
             : this(firstName, lastName, string.Empty, birthDate) { }
@@ -57,7 +57,7 @@ namespace Lab2_Hrynchuk.Model
         public string ChineseSign => CalcChineseZodiacSign(BirthDate);
         public bool IsBirthday => IsTodayBirthday(BirthDate);
 
-        private int CalcPersonAge(DateTime userBDate)
+        public int CalcPersonAge(DateTime userBDate)
         {
             int userAge;
             DateTime currentDate = DateTime.Now;
@@ -74,22 +74,6 @@ namespace Lab2_Hrynchuk.Model
             DateTime currentDate = DateTime.Now;
             if (userBDate.Day == currentDate.Day && userBDate.Month == currentDate.Month) { return true; }
             return false;
-        }
-
-        public bool PersonAgeValidation(DateTime userBDate)
-        {
-            int userAge = CalcPersonAge(userBDate);
-            if (userAge < 0)
-            {
-                MessageBox.Show($"Selected Date: {userBDate.ToShortDateString()} is wrong! \n You are not born yet!", "Wrong Date of Birth", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-            if (userAge > 135)
-            {
-                MessageBox.Show($"Selected Date: {userBDate.ToShortDateString()} is wrong \n or you over 135 years old which is not possible!", "Wrong Date of Birth", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return false;
-            }
-            return true;
         }
 
         private string CalcWesternZodiacSign(DateTime userBDate)
